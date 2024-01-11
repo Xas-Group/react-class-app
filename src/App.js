@@ -2,20 +2,21 @@ import styled from "styled-components";
 import "./App.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { navigationList } from "./UIData";
+import { Link } from "react-router-dom";
 
-function App({ element }) {
+function App({ children }) {
   return (
     <Container fluid>
       <AppStyle>
         <Row className="vh-100">
           <Col lg={2} className="side-bar border">
-            {navigationList.map(({ text, icon }, i, arr) => (
-              <div className="nav-item">
+            {navigationList.map(({ text, icon, path }, i, arr) => (
+              <Link className="nav-item" to={path}>
                 <span className="me-2">{icon}</span> {text}
-              </div>
+              </Link>
             ))}
           </Col>
-          <Col className="main-container border">{element}</Col>
+          <Col className="main-container border">{children}</Col>
         </Row>
       </AppStyle>
     </Container>
@@ -30,12 +31,14 @@ const AppStyle = styled.div`
   }
 
   .nav-item {
+    display: block;
     color: white;
     padding: 10px;
     background-color: #054b6e;
     margin-top: 15px;
     border-radius: 5px;
     cursor: pointer;
+    text-decoration: none;
 
     &:hover {
       opacity: 0.7;
